@@ -1,0 +1,14 @@
+[common]
+server_addr = {{ SERVER_IP }}
+server_port = {{ SERVER_PORT }}
+admin_port = 7400
+admin_user = admin
+admin_pwd = admin
+
+{% for FRPC in FRPC_LIST %}
+[{{ FRPC.app_name }}]
+type = tcp
+local_ip = {{ FRPC.local_ip }}
+local_port = {{ FRPC.local_port }}
+remote_port = {{ FRPC.remote_port }}
+{% endfor %}

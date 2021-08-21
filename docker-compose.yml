@@ -1,0 +1,22 @@
+version: '3'
+services:
+  frp-web:
+    container_name: frp-web
+    image: younglinuxer/frp-web
+    ports:
+      - "8081:8081"
+    #network_mode: "host"
+    restart: always
+    depends_on:
+      - frp-mysql
+  frp-mysql:
+    container_name: frp-mysql       # 指定容器的名称
+    image: mysql:5.7                   # 指定镜像和版本
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "yuan"
+    volumes:
+#      - "./mysql-data:/var/lib/mysql"           # 挂载数据目录
+      - "./frp_web.sql:/docker-entrypoint-initdb.d/frp_web.sql" # 初始化sql
+      - "/usr/share/zoneinfo/Asia/Shanghai:/etc/localtime" #设置时区

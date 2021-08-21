@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加外网映射</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/static/css/blue.css">
+
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a >添加外网映射</a>
+    </div>
+    {% block custom_message %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="select-bar">
+                    <ul style="margin:0 0 0 10px;padding:5px 10px;">
+                        {% for category, message in messages %}
+                            <div class="alert alert-warning">{{ message | safe }}</div>
+{#                            <li style="font-size:15px;">{{ message | safe }}</li>#}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+    {% endblock %}
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+
+        <form action="/" method="post">
+            <h6>映射名称</h6>
+            <div class="form-group has-feedback">
+                <!--<input type="text" name="domain" class="form-control" placeholder="juhefu.cn" value="juhefu.cn" readonly>-->
+                <input type="text" name="app_name" class="form-control" value="ssh">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <h6>本地IP</h6>
+            <div class="form-group has-feedback">
+                <input type="text" name="local_ip" class="form-control" value="127.0.0.1">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <h6>本地端口</h6>
+            <div class="form-group has-feedback">
+                <input type="text" name="local_port" class="form-control" value="22">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <h6>远程端口</h6>
+            <div class="form-group has-feedback">
+                <input type="text" name="remote_port" class="form-control" value="5000">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            远程端口范围 50000-59999
+            <div class="row">
+                <div class="col-xs-8">
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">确定</button>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+        <div class="social-auth-links text-center">
+        </div>
+        <!-- /.social-auth-links -->
+    </div>
+
+
+    <table class="table table-hover">
+      <caption>已映射列表</caption>
+      <thead>
+        <tr>
+          <th>名字</th>
+          <th>映射ip</th>
+          <th>映射端口</th>
+          <th>服务器端口</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for fprc in jxjl %}
+        <tr>
+          <td>{{ fprc.app_name }}</td>
+          <td>{{ fprc.local_ip }}</td>
+          <td>{{ fprc.local_port }}</td>
+          <td>{{ fprc.remote_port }}</td>
+          <td><button id="{{ fprc.app_name }}" onclick="javascript:delete_fc(this);" type="button" class="btn btn-danger">删除</button></td>
+        </tr>
+    {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function delete_fc(e)
+    {
+         {#const params app_name=e.id;#}
+         let data = "app_name=" + e.id,
+  　　　　 url = '/delete_fpc',
+  　　　　 xhr = new XMLHttpRequest();
+      　　xhr.open('post', url);
+          //设置header
+      　　xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      　　xhr.send(data);
+      　　xhr.onreadystatechange = function () {
+      　　　　if (xhr.readyState === 4 && ( xhr.status === 200 || xhr.status === 304 )){
+      　　　　　　console.log(xhr.responseText);
+                location.reload();
+      　　　　}
+      　　}
+    }
+</script>
+</body>
+</html>

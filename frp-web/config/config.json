@@ -1,0 +1,1 @@
+[{"app_name": "ssh", "local_ip": "127.0.0.1", "local_port": "8080", "remote_port": "8081"}, {"app_name": "ssh2", "local_ip": "127.0.0.1", "local_port": "22", "remote_port": "5000"}, {"app_name": "ssh3", "local_ip": "127.0.0.1", "local_port": "221", "remote_port": "50001"}, {"app_name": "telnet", "local_ip": "127.0.0.1", "local_port": "21", "remote_port": "21"}]
