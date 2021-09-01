@@ -21,17 +21,22 @@ def make_frp_config():
 
     content = template.render(SERVER_IP=server_ip, SERVER_PORT=server_port, FRPC_LIST=frp_list)
     with open(name, 'w') as fp:fp.write(content)
-    os.system('/frp-web/bin/frpc -c /frp-web/frpc.ini reload')
+    # os.system('/frp-web/bin/frpc -c /frp-web/frpc.ini reload')
 
 
 def get_frpc():
     frp_list = []
+    for i in exec_sql(sql='SELECT server_ip FROM frp_server;'): server_ip = i[0]
     for frp in exec_sql(sql='SELECT `app_name`,`local_ip`,`local_port`,`remote_port` FROM frp_config;'):
         app_name, local_ip,local_port, remote_port = frp[0],frp[1],frp[2],frp[3]
-        frp_list.append({"app_name": app_name, "local_ip": local_ip, "local_port": local_port, "remote_port": remote_port})
+        frp_list.append({"app_name": app_name, "local_ip": local_ip, "local_port": local_port, "remote_addr": server_ip + ':' + remote_port})
     # print(json.dumps(frp_list))
     return json.dumps(frp_list)
 
+def get_frpc_remarks():
+    for i in exec_sql(sql='SELECT remarks FROM frp_server;'): remarks = i[0]
+
+    return remarks
 
 
 

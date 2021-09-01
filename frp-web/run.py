@@ -28,7 +28,7 @@ def index():
         flash(c)
         return redirect(url_for('index'))
     if request.method == 'GET':
-        return render_template('index.html', jxjl=json.loads(get_frpc()))
+        return render_template('index.html', jxjl=json.loads(get_frpc()),remarks=get_frpc_remarks())
         # return render_template('index.html')
     return render_template('index.html')
 

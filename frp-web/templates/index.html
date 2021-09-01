@@ -64,7 +64,7 @@
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
-            远程端口范围 50000-59999
+            {{ remarks }}
             <div class="row">
                 <div class="col-xs-8">
                 </div>
@@ -88,7 +88,7 @@
           <th>名字</th>
           <th>映射ip</th>
           <th>映射端口</th>
-          <th>服务器端口</th>
+          <th>访问地址</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -98,7 +98,7 @@
           <td>{{ fprc.app_name }}</td>
           <td>{{ fprc.local_ip }}</td>
           <td>{{ fprc.local_port }}</td>
-          <td>{{ fprc.remote_port }}</td>
+          <td>{{ fprc.remote_addr }}</td>
           <td><button id="{{ fprc.app_name }}" onclick="javascript:delete_fc(this);" type="button" class="btn btn-danger">删除</button></td>
         </tr>
     {% endfor %}
