@@ -21,7 +21,7 @@ def make_frp_config():
 
     content = template.render(SERVER_IP=server_ip, SERVER_PORT=server_port, FRPC_LIST=frp_list)
     with open(name, 'w') as fp:fp.write(content)
-    # os.system('/frp-web/bin/frpc -c /frp-web/frpc.ini reload')
+    os.system('/frp-web/bin/frpc -c /frp-web/frpc.ini reload')
 
 
 def get_frpc():
