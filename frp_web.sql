@@ -13,7 +13,8 @@
 
  Date: 01/09/2021 15:13:45
 */
-
+CREATE DATABASE `frp_web` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_general_ci';
+use frp_web;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
